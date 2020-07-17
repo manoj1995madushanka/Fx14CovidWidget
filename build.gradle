@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.5'
+}
+
+/*need to identify main class to gradle after adding application plugin*/
+mainClassName = 'com.covidlk.Launch'
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+/*java fx have 7 modules */
+/*javafx.base
+Defines the base APIs for the JavaFX UI toolkit, including APIs for bindings, properties, collections, and events.
+javafx.controls
+Defines the UI controls, charts, and skins that are available for the JavaFX UI toolkit.
+javafx.fxml
+Defines the FXML APIs for the JavaFX UI toolkit.
+javafx.graphics
+Defines the core scenegraph APIs for the JavaFX UI toolkit (such as layout containers, application lifecycle, shapes, transformations, canvas, input, painting, image handling, and effects), as well as APIs for animation, css, concurrency, geometry, printing, and windowing.
+javafx.media
+Defines APIs for playback of media and audio content, as part of the JavaFX UI toolkit, including MediaView and MediaPlayer.
+javafx.swing
+Defines APIs for the JavaFX / Swing interop support included with the JavaFX UI toolkit, including SwingNode (for embedding Swing inside a JavaFX application) and JFXPanel (for embedding JavaFX inside a Swing application).
+javafx.web
+Defines APIs for the WebView functionality contained within the the JavaFX UI toolkit.*/
+javafx {
+    version = "14"
+    modules = [ 'javafx.controls','javafx.base','javafx.graphics','javafx.fxml' ]
+}
