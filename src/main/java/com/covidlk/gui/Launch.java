@@ -54,7 +54,7 @@ public class Launch extends Application {
         //make widget open in right top corner
         Rectangle2D displayMatrix = Screen.getPrimary().getVisualBounds();
         widgetStage.setX(displayMatrix.getMaxX() - (25 + widgetScene.getWidth())); // x direction ->
-        widgetStage.setY(displayMatrix.getMinY()+25);
+        widgetStage.setY(displayMatrix.getMinY() + 25);
         // make drag and move
         widgetScene.setOnMouseClicked(mouseEvent -> {
             xOffset = widgetStage.getX() - mouseEvent.getScreenX();
@@ -67,8 +67,7 @@ public class Launch extends Application {
         });
     }
 
-    private void resetCordinates()
-    {
+    private void resetCordinates() {
         xOffset = 0;
         yOffset = 0;
     }
