@@ -16,8 +16,25 @@ repositories {
     mavenCentral()
 }
 
+//withour below lines programe not detect fxml classes so start method throw runtime exception
+sourceSets.main.resources.srcDirs("src/main/java").includes.addAll(["**/*.fxml","**/*.css","**/*.png"])
+sourceSets.main.resources.srcDirs("src/main/resources").includes.addAll(["**/*.*"])
+
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    compile 'com.squareup.retrofit2:retrofit:2.9.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.9.0' // for convert json to pojo obj
+
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.12'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+    // ikonli for get icons
+    compile 'org.kordamp.ikonli:ikonli-javafx:11.5.0'
+    compile 'org.kordamp.ikonli:ikonli-fontawesome-pack:11.5.0'
 }
 
 /*java fx have 7 modules */
@@ -39,3 +56,5 @@ javafx {
     version = "14"
     modules = [ 'javafx.controls','javafx.base','javafx.graphics','javafx.fxml' ]
 }
+
+

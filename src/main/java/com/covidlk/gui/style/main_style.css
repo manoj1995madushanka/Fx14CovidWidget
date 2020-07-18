@@ -1,0 +1,17 @@
+* {
+    -fx-background-color : #232323;
+    -fx-font-family: 'Hack','Noto Mono',Arial;
+}
+
+.main-title{
+    -fx-font-weight: bold;
+    -fx-font-size: 16pt;
+}
+
+.content-text{
+    -fx-font-size: 10pt;
+}
+
+.country-code{
+    -fx-font-size: 12pt;
+}
