@@ -5,7 +5,7 @@ plugins {
 }
 
 /*need to identify main class to gradle after adding application plugin*/
-mainClassName = 'com.covidlk.Launch'
+mainClassName = 'com.covidlk.Main'
 
 group 'org.example'
 version '1.0-SNAPSHOT'

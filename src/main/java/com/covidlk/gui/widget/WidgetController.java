@@ -1,11 +1,17 @@
 package com.covidlk.gui.widget;
 
+import com.covidlk.config.ConfigModel;
+import com.covidlk.config.ConfigurationService;
 import com.covidlk.model.JsonObjectMapper;
 import com.covidlk.service.DataFetchService;
+import com.sun.javafx.menu.MenuItemBase;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
@@ -17,6 +23,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 public class WidgetController implements Initializable {
     @FXML
     public AnchorPane rootPane;
@@ -27,6 +35,8 @@ public class WidgetController implements Initializable {
     private String lkData;
     private String glData;
 
+    private ConfigModel configModel;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -34,8 +44,10 @@ public class WidgetController implements Initializable {
     }
 
     private void initializeSchedular() {
+        configModel = new ConfigurationService().getConfigurations();
         executorService = Executors.newSingleThreadScheduledExecutor();
-        executorService.scheduleAtFixedRate(this::loadData,0,30, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(this::loadData,0,configModel.getRefreshIntervalInSeconds(), SECONDS);
+        initializeContextMenu();
     }
 
     private void loadData() {
@@ -74,5 +86,36 @@ public class WidgetController implements Initializable {
         Rectangle2D displayMatrix = Screen.getPrimary().getVisualBounds();
         stage.setX(displayMatrix.getMaxX() - (25 + textCountryRecord.getScene().getWidth())); // x direction ->
         stage.setY(displayMatrix.getMinY()+25);
+    }
+
+    //initialize menu item for close application
+    private void initializeContextMenu()
+    {
+        MenuItem exitItem = new MenuItem("exit");
+        MenuItem refreshItem = new MenuItem("refresh now");
+
+        exitItem.setOnAction(actionEvent -> {
+            System.exit(0);
+        });
+
+        refreshItem.setOnAction(actionEvent -> {
+            executorService.schedule(this::loadData,0, SECONDS);
+        });
+
+        final ContextMenu contextMenu = new ContextMenu(refreshItem,exitItem);
+
+        // add event handler for right mouse click for display contest menu
+        rootPane.addEventHandler(MouseEvent.MOUSE_PRESSED,mouseEvent -> {
+            if(mouseEvent.isSecondaryButtonDown())
+            {
+                contextMenu.show(rootPane,mouseEvent.getScreenX(),mouseEvent.getScreenY());
+            }
+            else{
+                if (contextMenu.isShowing())
+                {
+                    contextMenu.hide();
+                }
+            }
+        });
     }
 }

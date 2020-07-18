@@ -1,4 +1,4 @@
-package com.covidlk;
+package com.covidlk.gui;
 
 import com.covidlk.service.DataFetchService;
 import javafx.application.Application;
@@ -71,5 +71,9 @@ public class Launch extends Application {
     {
         xOffset = 0;
         yOffset = 0;
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }
